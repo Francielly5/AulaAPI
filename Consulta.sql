@@ -11,3 +11,20 @@ INSERT INTO pizzas (nome, ingredientes, valor) VALUES
 ('Portuguesa', 'Mussarela, presunto, ovo, ervilha, cebola e calabresa', 62.90),
 ('Moda do Juca', 'Mussarela, peito de peru, palmito, alho poró e alcaparras', 72.50);
 SELECT * FROM pizzas
+
+--------
+
+CREATE TABLE bebidas(
+    idBebidas INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(30) NOT NULL,
+    categoria VARCHAR (10) NOT NULL,
+    tamanho SMALLINT NOT NULL,
+    valor DECIMAL(10,3) NOT NULL
+);
+
+INSERT INTO bebidas (nome, categoria, tamanho, valor) VALUES 
+('Sol', 'Com álcool','600ml', 13.00),
+('Guaraná', 'Com gás','2L', 16.00),
+('Água mineral', 'Sem gás', '250ml', 5.00),
+('Dell Vale Laranja', 'Sem corante','200ml', 7.00),
+('Gin', 'Com álcool', '350ml',18.00);
