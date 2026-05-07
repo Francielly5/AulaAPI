@@ -19,15 +19,15 @@ echo "<p style='color: green;'>Conexão bem-sucedida!</p>";
 echo "<h2>Criando um objeto Bebida...</h2>";
  
 // Criamos uma instância da classe Pizza, passando a conexão com o banco
-$bebida = new Bebida($db);
+$bebidas = new Bebida($db);
  
 // Atribuímos valores às suas propriedades públicas
-$bebida->nome = 'Coca-Cola';
-$bebida->tamanho = '350ml';
-$bebida->valor = 8.50;
-$bebida->categoria = 'NAO_ALCOOLICO';
+$bebidas->nome = 'Guaraná';
+$bebidas->categoria = 'Com gás';
+$bebidas->tamanho = '2L';
+$bebidas->valor = 16.00;
  
 // Vamos inspecionar o objeto!
 echo "<pre>"; // A tag <pre> ajuda a formatar a saída do print_r
-print_r($bebida);
+print_r($bebidas);
 echo "</pre>";

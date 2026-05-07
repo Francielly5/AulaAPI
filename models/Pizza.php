@@ -1,29 +1,72 @@
 <?php
 
-class Pizza{
-    private $conn;
-    private $tabela = 'pizzas';
+class Pizza {
 
+    // conexão
+    private $conn;
+
+    // nome da tabela
+    private $tabela = "pizzas";
+
+    // atributos
     public $idPizza;
     public $nome;
     public $ingredientes;
     public $valor;
 
-    public function __construct($db) {
-        $this-> conn = $db;
+    // construtor
+    public function __construct($db){
+        $this->conn = $db;
     }
 
-    public function getall(){
-        //Salvando a query SQL em uma variável
-        $query = "SELECT idPizza, nome, ingredientes, valor FROM " . $this->tabela;
+    // método READ
+    public function read(){
 
-        //Preparando a query para ser executada, usando a conexão com o banco de dados
+        // query
+        $query = "SELECT
+                    idPizza,
+                    nome,
+                    ingredientes,
+                    valor
+                  FROM
+                    " . $this->tabela;
+
+        // prepara
         $stmt = $this->conn->prepare($query);
 
-        //Executando a query no Banco de Dados
+        // executa
         $stmt->execute();
 
-        //Retornando o resultado da query
+        // retorna
         return $stmt;
     }
+
+    // método GET (detalhar pizza por id)
+    public function get(){
+        $query = "SELECT
+                    idPizza,
+                    nome,
+                    ingredientes,
+                    valor
+                  FROM
+                    " . $this->tabela . "
+                  WHERE
+                    idPizza = :idPizza
+                  LIMIT 1";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':idPizza', $this->idPizza, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $this->nome = $row['nome'];
+            $this->ingredientes = $row['ingredientes'];
+            $this->valor = $row['valor'];
+            return true;
+        }
+
+        return false;
+    }
 }
+?>

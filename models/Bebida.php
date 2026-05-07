@@ -6,10 +6,9 @@ class Bebida{
 
     public $idBebidas;
     public $nome;
+    public $categoria;
     public $tamanho;
     public $valor;
-
-    public $categoria;
 
     public function __construct($db) {
         $this-> conn = $db;
@@ -17,7 +16,7 @@ class Bebida{
 
     public function getall(){
         //Salvando a query SQL em uma variável
-        $query = "SELECT idBebida, nome, tamanho, valor, categoria FROM " . $this->tabela;
+        $query = "SELECT idBebidas, nome, categoria, tamanho, valor FROM " . $this->tabela;
 
         //Preparando a query para ser executada, usando a conexão com o banco de dados
         $stmt = $this->conn->prepare($query);
