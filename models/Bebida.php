@@ -27,4 +27,23 @@ class Bebida{
         //Retornando o resultado da query
         return $stmt;
     }
+
+    public function get(){
+        $query = "SELECT idBebidas, nome, categoria, tamanho, valor FROM " . $this->tabela . " WHERE idBebidas = :idBebidas LIMIT 1";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':idBebidas', $this->idBebidas, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $this->nome = $row['nome'];
+            $this->categoria = $row['categoria'];
+            $this->tamanho = $row['tamanho'];
+            $this->valor = $row['valor'];
+            return true;
+        }
+
+        return false;
+    }
 }
