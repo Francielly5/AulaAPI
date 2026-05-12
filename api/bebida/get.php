@@ -38,6 +38,8 @@ if ($bebida->get()) {
         "valor" => $bebida->valor
     );
 
+    
+
     header("HTTP/1.1 200 OK");
     echo json_encode($bebida_arr, 128);
 } else {

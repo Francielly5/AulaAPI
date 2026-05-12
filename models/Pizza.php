@@ -1,72 +1,87 @@
 <?php
-
-class Pizza {
-
-    // conexão
+ 
+ 
+class Pizza{
+ 
     private $conn;
-
-    // nome da tabela
-    private $tabela = "pizzas";
-
-    // atributos
+ 
+    private $tabela = 'pizzas';
+ 
     public $idPizza;
     public $nome;
     public $ingredientes;
     public $valor;
-
-    // construtor
-    public function __construct($db){
-        $this->conn = $db;
+ 
+    public function __construct($conexao){
+        $this->conn = $conexao;
     }
-
-    // método READ
-    public function read(){
-
-        // query
-        $query = "SELECT
-                    idPizza,
-                    nome,
-                    ingredientes,
-                    valor
-                  FROM
-                    " . $this->tabela;
-
-        // prepara
+ 
+   public function  getall(){
+//Salvando a query em SQL em uma variavel
+        $query =    "SELECT idPizza, nome, ingredientes, valor FROM " . $this->tabela;
+ 
+ 
+        // Preparando a query para ser executada, ou seja, vinculando ela a conexão
         $stmt = $this->conn->prepare($query);
-
-        // executa
+ 
         $stmt->execute();
-
-        // retorna
+ 
         return $stmt;
     }
-
-    // método GET (detalhar pizza por id)
+ 
     public function get(){
-        $query = "SELECT
-                    idPizza,
-                    nome,
-                    ingredientes,
-                    valor
-                  FROM
-                    " . $this->tabela . "
-                  WHERE
-                    idPizza = :idPizza
-                  LIMIT 1";
-
+        $query = 'SELECT
+            idPizza,
+            nome,
+            ingredientes,
+            valor
+        FROM
+            ' . $this->tabela . '
+        WHERE
+            idPizza = ?
+        LIMIT 1';
+ 
+         // Prepara a query
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':idPizza', $this->idPizza, PDO::PARAM_INT);
+ 
+        // Vincula o ID
+        $stmt->bindParam(1, $this->idPizza);
+   
+        // Executa a query
         $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $this->nome = $row['nome'];
-            $this->ingredientes = $row['ingredientes'];
-            $this->valor = $row['valor'];
-            return true;
-        }
-
-        return false;
+ 
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+ 
+        // Define as propriedades
+        $this->nome = $row['nome'];
+        $this->ingredientes = $row['ingredientes'];
+        $this->valor = $row['valor'];
+    }
+ 
+ 
+ 
+public function create(){
+   
+    $query = 'INSERT INTO ' . $this->tabela . ' SET nome = :nome, ingredientes = :ingredientes, valor = :valor';
+ 
+    // Preparar a query
+    $stmt = $this->conn->prepare($query);
+ 
+    // Limpar os dados
+    $this->nome = htmlspecialchars(strip_tags($this->nome));
+    $this->ingredientes = htmlspecialchars(strip_tags($this->ingredientes));
+    $this->valor = htmlspecialchars(strip_tags($this->valor));
+ 
+    // Vincular os parâmetros
+    $stmt->bindParam(':nome', $this->nome);
+    $stmt->bindParam(':ingredientes', $this->ingredientes);
+    $stmt->bindParam(':valor', $this->valor);
+ 
+    // Executar a query
+    if ($stmt->execute()) {
+        return true;
+    }        
+    return false;
+ 
     }
 }
-?>

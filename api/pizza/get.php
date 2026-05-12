@@ -42,21 +42,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             "ingredientes" => $pizza->ingredientes,
             "valor" => $pizza->valor
         );
+
+        if($pizza->nome != null){
+
+ $pizza_arr = array(
+            "id" => $pizza->idPizza,
+            "nome" => $pizza->nome,
+            "ingredientes" => $pizza->ingredientes,
+            "valor" => $pizza->valor
+ );
+ echo json_encode($pizza_arr, 128);
+        }
+        else{
+header("HTTP/1.1 404 not found");
+echo json_encode(
+    array("Mensagem" => "Pizza não encontrada")
+);
+
+        }
  
         // Converte para JSON e envia a resposta
         // `JSON_PRETTY_PRINT` é opcional, mas deixa o JSON mais legível
-        echo json_encode($pizza_arr, 128);
+       
     } else {
- 
- 
+        //
+       header("HTTP/1.1 400 bad request");
+        echo json_encode(
+                array("Erro" => "Id não informado.")
+        );
+
     }
 }else {
-     http_response_code(405);
+     header("HTTP/1.1 405 met not allowed");
     echo json_encode(
             array("Mensagem" => "Método não permitido.")
         );
 }
-
 
 
 ?>
