@@ -71,4 +71,35 @@ class Bebida{
         }
         return false;
     }
+    public function update() {
+        // Query de atualização
+        $query = 'UPDATE ' . $this->tabela . ' SET nome=:nome, categoria=:categoria,tamanho=:tamanho, valor=:valor WHERE idBebidas=:id';
+ 
+        // Preparar a query
+        $stmt = $this->conn->prepare($query);
+ 
+        // Limpar os dados
+        $this->nome = htmlspecialchars(strip_tags($this->nome));
+        $this->categoria = htmlspecialchars(strip_tags($this->categoria));
+        $this->tamanho = htmlspecialchars(strip_tags($this->tamanho));
+        $this->valor = htmlspecialchars(strip_tags($this->valor));
+        $this->idBebidas = htmlspecialchars(strip_tags($this->idBebidas));
+ 
+        // Vincular os parâmetros
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':categoria', $this->categoria);
+        $stmt->bindParam(':tamanho', $this->tamanho);
+        $stmt->bindParam(':valor', $this->valor);
+        $stmt->bindParam(':id', $this->idBebidas);
+ 
+        // Executar a query
+        if($stmt->execute()) {
+            return true;
+        }
+     
+        return false;
+    }
+ 
+
 }
+
