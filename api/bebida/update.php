@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             $bebida->tamanho = $data->tamanho;
             $bebida->valor = $data->valor;
  
-            // Tentar atualizar a pizza
+            // Tentar atualizar a bebida
             if ($bebida->update()) {
                 //http_response_code(200);
                 // Resposta de sucesso   
