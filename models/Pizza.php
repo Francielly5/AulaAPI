@@ -111,6 +111,27 @@ public function update() {
      
         return false;
     }
+
+
+ public function delete() {
+        $query = 'DELETE FROM ' . $this->tabela . ' WHERE idPizza=:id';
+ 
+        // Preparar a query
+        $stmt = $this->conn->prepare($query);
+ 
+        // Limpar os dados
+        $this->idPizza = htmlspecialchars(strip_tags($this->idPizza));
+ 
+        // Vincular os parâmetros
+        $stmt->bindParam(':id', $this->idPizza);
+ 
+        // Executar a query
+        if($stmt->execute()) {
+            return true;
+        }
+     
+        return false;
+    }
  
 
 }

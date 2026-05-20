@@ -100,6 +100,24 @@ class Bebida{
         return false;
     }
  
-
+ public function delete() {
+        $query = 'DELETE FROM ' . $this->tabela . ' WHERE idBebidas=:id';
+ 
+        // Preparar a query
+        $stmt = $this->conn->prepare($query);
+ 
+        // Limpar os dados
+        $this->idBebidas = htmlspecialchars(strip_tags($this->idBebidas));
+ 
+        // Vincular os parâmetros
+        $stmt->bindParam(':id', $this->idBebidas);
+ 
+        // Executar a query
+        if($stmt->execute()) {
+            return true;
+        }
+     
+        return false;
+    }
 }
 
