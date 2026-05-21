@@ -107,7 +107,7 @@ class Bebida{
         $stmt = $this->conn->prepare($query);
  
         // Limpar os dados
-        $this->idBebidas = htmlspecialchars(strip_tags($this->idBebidas));
+       // $this->idBebidas = htmlspecialchars(strip_tags($this->idBebidas));
  
         // Vincular os parâmetros
         $stmt->bindParam(':id', $this->idBebidas);

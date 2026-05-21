@@ -126,7 +126,7 @@ public function update() {
         $stmt = $this->conn->prepare($query);
  
         // Limpar os dados
-        $this->idPizza = htmlspecialchars(strip_tags($this->idPizza));
+       // $this->idPizza = htmlspecialchars(strip_tags($this->idPizza));
  
         // Vincular os parâmetros
         $stmt->bindParam(':id', $this->idPizza);
