@@ -113,8 +113,8 @@ class Bebida{
         $stmt->bindParam(':id', $this->idBebidas);
  
         // Executar a query
-        if($stmt->execute()) {
-            return true;
+        if ($stmt->execute()) {
+            return $stmt->rowCount() > 0;
         }
      
         return false;

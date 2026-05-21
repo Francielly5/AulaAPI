@@ -28,7 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         if (!empty($id)) {
             $bebida->idBebidas = $id;
  
-            if ($bebida->delete()) {
+            if (!$bebida->get()) {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(
+                    array('Mensagem' => 'ID não existe. Bebida não encontrada.')
+                );
+            } elseif ($bebida->delete()) {
                 header('HTTP/1.1 200 OK');
                 echo json_encode(
                     array('Mensagem' => 'Bebida excluída com sucesso')

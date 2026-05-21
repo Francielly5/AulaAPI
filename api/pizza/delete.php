@@ -28,7 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         if (!empty($id)) {
             $pizza->idPizza = $id;
  
-            if ($pizza->delete()) {
+            if (!$pizza->get()) {
+                header('HTTP/1.1 404 Not Found');
+                echo json_encode(
+                    array('Mensagem' => 'ID não existe. Pizza não encontrada.')
+                );
+            } elseif ($pizza->delete()) {
                 header('HTTP/1.1 200 OK');
                 echo json_encode(
                     array('Mensagem' => 'Pizza excluída com sucesso')

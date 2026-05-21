@@ -52,10 +52,16 @@ class Pizza{
  
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
  
+        if (!$row) {
+            return false;
+        }
+ 
         // Define as propriedades
         $this->nome = $row['nome'];
         $this->ingredientes = $row['ingredientes'];
         $this->valor = $row['valor'];
+ 
+        return true;
     }
  
  
@@ -126,8 +132,8 @@ public function update() {
         $stmt->bindParam(':id', $this->idPizza);
  
         // Executar a query
-        if($stmt->execute()) {
-            return true;
+        if ($stmt->execute()) {
+            return $stmt->rowCount() > 0;
         }
      
         return false;
