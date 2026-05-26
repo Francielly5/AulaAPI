@@ -1,0 +1,17 @@
+{
+    "name": "francielly.mferreira/apipizzasrefatorado",
+    "description": "Projeto pedagógico para demonstrar a criação de APIs",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "FranciellyMferreira\\Apipizzasrefatorado\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Francielly5",
+            "email": "franciellym.ferreira15@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,6 +1,7 @@
 <?php
  
- 
+ namespace FranciellyMferreira\Apipizzasrefatorado\models;
+
 class Pizza{
  
     private $conn;

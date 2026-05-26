@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
+
+use FranciellyMferreira\Apipizzasrefatorado\models\Pizza;
+
 // Instanciar o objeto Database e obter a conexão
 $database = new Database();
 $db = $database->getConnection();
